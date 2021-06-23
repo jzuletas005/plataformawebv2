@@ -101,7 +101,9 @@ export default function UserAdd () {
                         profesion1: element.Oficio,
                         profesion2: "",
                         profesion3: "",
-                        profileimage: ""
+                        profileimage: "",
+                        dnifront: "",
+                        dnireverse: ""
                     }
 
                    var uid = await getUID(data.username, data.pass);
