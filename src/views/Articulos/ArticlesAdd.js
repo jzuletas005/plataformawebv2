@@ -489,7 +489,7 @@ export default function ArticlesAdd () {
                     </CardBody>
                     <CardFooter className={classes.justifyContentCenter}>
                         <Button color="rose" onClick={typeClick}>
-                            Crear Usuario
+                            Crear Artículo
                         </Button>
                     </CardFooter>
                 </Card>

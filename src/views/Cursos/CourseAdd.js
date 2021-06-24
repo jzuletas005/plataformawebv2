@@ -70,8 +70,8 @@ export default function CourseAdd () {
     const [headerAnswer, setHeaderAnswer] = useState([]);
 
     //Headers
-    const hQuestion = ["N°","Pregunta"];
-    const hAlternatives = ["Pregunta", "Alternativas"];
+    const hQuestion = ["numero","pregunta"];
+    const hAlternatives = ["pregunta", "alternativas"];
     const hAnswer = ["Pregunta", "Respuesta"];
 
 
@@ -408,9 +408,7 @@ export default function CourseAdd () {
                                         inputProps={{
                                             onChange: event => {
                                             if (verifyLength(event.target.value, 0)) {
-                                                if(verifyType(event.target.value, "jpg") || verifyType(event.target.value, "jpeg") ||
-                                                verifyType(event.target.value, "png") || verifyType(event.target.value, "pdf") || 
-                                                verifyType(event.target.value, "mkv") || verifyType(event.target.value, "avi") ||
+                                                if( verifyType(event.target.value, "pdf") || 
                                                 verifyType(event.target.value, "mp4")){
                                                     let reader = new FileReader();
                                                     let file = event.target.files[0];

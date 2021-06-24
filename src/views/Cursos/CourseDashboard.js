@@ -16,6 +16,7 @@ import Check from "@material-ui/icons/Check";
 import Remove from "@material-ui/icons/Remove";
 import Add from "@material-ui/icons/Add";
 import People from '@material-ui/icons/PersonAdd';
+import Description from "@material-ui/icons/Description";
 
 // core components
 import GridContainer from "../../components/Grid/GridContainer.js";
@@ -150,7 +151,7 @@ export default function CourseDashboard () {
         const unsubscribe = FService.getAllCourse().onSnapshot(onDataChange);
         return () => unsubscribe();
       }, []);
-  
+
       function warningWithConfirmAndCancelMessage(props){
         setAlert(
           <SweetAlert
@@ -304,7 +305,7 @@ export default function CourseDashboard () {
                                 accessor: "questions"
                                 },
                                 {
-                                Header: "Fecha de Creación",
+                                Header: "Fecha Creación",
                                 accessor: "date"
                                 },
                                 {

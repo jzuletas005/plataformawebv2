@@ -16,6 +16,7 @@ import Check from "@material-ui/icons/Check";
 import Remove from "@material-ui/icons/Remove";
 import Add from "@material-ui/icons/Add";
 import People from '@material-ui/icons/PersonAdd';
+import Description from "@material-ui/icons/Description";
 
 // core components
 import GridContainer from "../../components/Grid/GridContainer.js";
@@ -119,6 +120,20 @@ export default function ArticlesDashboard () {
                 actions: (
                   // we've added some custom button actions
                   <div className="actions-right">
+                    <Button
+                      justIcon
+                      round
+                      simple
+                      size="lg"
+                      onClick={() =>{
+                        //warningWithConfirmAndCancelMessage(id, data.title);
+                        showArticle(data.title, data.description, data.datepublish);
+                      }}
+                      color="success"
+                      className="desciption"
+                    >
+                      <Description />
+                    </Button>{" "}
                     {/* use this button to remove the data row */}
                     <Button
                       justIcon
@@ -144,6 +159,22 @@ export default function ArticlesDashboard () {
         const unsubscribe = FService.getAllNews().onSnapshot(onDataChange);
         return () => unsubscribe();
     }, []);
+
+    function showArticle (title, description, publish){
+      setAlert(
+        <SweetAlert
+            style={{ display: "block", marginTop: "-100px" }}
+            title="Noticia"
+            onConfirm={() => hideAlert()}
+            onCancel={() => hideAlert()}
+            confirmBtnCssClass={classesA.button + " " + classesA.info}
+            >
+              <h5> Titulo: {title} </h5>
+              <h5> Descripción: {description} </h5>
+              <h5> Fecha de Publicación: {publish} </h5>
+            </SweetAlert>
+      )
+    }
 
     function warningWithConfirmAndCancelMessage(a,b){
         setAlert(

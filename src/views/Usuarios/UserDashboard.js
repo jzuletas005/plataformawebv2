@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import { Link, Switch, Route, Redirect } from "react-router-dom";
-import { useCollection } from 'react-firebase-hooks/firestore';
 
 // firebase components
 import FService from '../../services/FirebaseService.js';
@@ -130,13 +129,15 @@ export default function UserDashboard (){
                       justIcon
                       round
                       simple
+                      size="lg"
                       onClick={() =>{
-                        warningWithConfirmAndCancelMessage(id);
+                        //warningWithConfirmAndCancelMessage(id);
+                        showUser(data.name, data.rut, data.age, data.email, data.phone, data.profesion1);
                       }}
-                      color="danger"
-                      className="remove"
+                      color="primary"
+                      className="show"
                     >
-                      <Close />
+                      <Person />
                     </Button>{" "}
                   </div>
                 )
@@ -192,6 +193,25 @@ export default function UserDashboard (){
         const unsubscribe = FService.getAllUser().onSnapshot(onDataChange);
         return () => unsubscribe();
     }, []);
+
+    function showUser (name, rut, age, email, phone, profesion){
+      setAlert(
+        <SweetAlert
+        style={{ display: "block", marginTop: "-100px" }}
+        title="Usuario"
+        onConfirm={() => hideAlert()}
+        onCancel={() => hideAlert()}
+        confirmBtnCssClass={classesA.button + " " + classesA.info}
+        >
+          <h5> Nombre: {name} </h5>
+          <h5> Rut: {rut} </h5>
+          <h5> Edad: {age} </h5>
+          <h5> Email: {email} </h5>
+          <h5> Telefono: {phone} </h5>
+          <h5> Profesión: {profesion} </h5>
+        </SweetAlert>
+      )
+    }
 
     function warningWithConfirmAndCancelMessage(props){
       setAlert(

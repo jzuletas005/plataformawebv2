@@ -13,7 +13,7 @@ import Close from "@material-ui/icons/Close";
 import Check from "@material-ui/icons/Check";
 import Remove from "@material-ui/icons/Remove";
 import Add from "@material-ui/icons/Add";
-import Call from "@material-ui/icons/PhonelinkRing";
+import Description from "@material-ui/icons/Description";
 
 // core components
 import GridContainer from "../../components/Grid/GridContainer.js";
@@ -114,11 +114,26 @@ export default function CallDashboard (){
             id: id,
             callid: data.callid,
             title: data.calltitle,
+            details: data.calldetail,
             datepublish: data.calldatepublish,
             dateexp: data.calldateexp,
             actions: (
               // we've added some custom button actions
               <div className="actions-right">
+                <Button
+                  justIcon
+                  round
+                  simple
+                  size="lg"
+                  onClick={() =>{
+                    //warningWithConfirmAndCancelMessage(id, data.calltitle);
+                    showCall(data.calltitle, data.calldetail, data.calldatepublish, data.calldateexp);
+                  }}
+                  color="success"
+                  className="show"
+                >
+                  <Description />
+                </Button>{" "}
                 {/* use this button to remove the data row */}
                 <Button
                   justIcon
@@ -144,6 +159,23 @@ useEffect(() => {
     const unsubscribe = FService.getAllCalls().onSnapshot(onDataChange);
     return () => unsubscribe();
 }, []);
+
+function showCall (title, detail, publish, expire){
+  setAlert(
+    <SweetAlert
+        style={{ display: "block", marginTop: "-100px" }}
+        title="Convocatoria"
+        onConfirm={() => hideAlert()}
+        onCancel={() => hideAlert()}
+        confirmBtnCssClass={classesA.button + " " + classesA.info}
+        >
+          <h5> Titulo: {title} </h5>
+          <h5> Detalle: {detail} </h5>
+          <h5> Fecha de Inicio: {publish} </h5>
+          <h5> Fecha de Termino: {expire} </h5>
+        </SweetAlert>
+  )
+}
 
 function warningWithConfirmAndCancelMessage(a,b){
   setAlert(
@@ -245,11 +277,11 @@ const hideAlert = () => {
                             accessor: "title"
                             },
                             {
-                            Header: "Fecha de Publicación",
+                            Header: "Fecha Publicación",
                             accessor: "datepublish"
                             },
                             {
-                            Header: "Fecha de Expiración",
+                            Header: "Fecha Expiración",
                             accessor: "dateexp"
                             },
                             {
