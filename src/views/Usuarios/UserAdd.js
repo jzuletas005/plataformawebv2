@@ -20,10 +20,11 @@ import CardText from "../../components/Card/CardText.js";
 import CardBody from "../../components/Card/CardBody.js";
 import CardFooter from "../../components/Card/CardFooter.js";
 import { CircularProgress } from '@material-ui/core';
-import { Fade } from '@material-ui/core';
+import Help from '@material-ui/icons/Help';
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles,makeStyles } from "@material-ui/core/styles";
+import { Tooltip, Typography, Zoom } from '@material-ui/core';
 import FormLabel from "@material-ui/core/FormLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Select from "@material-ui/core/Select";
@@ -41,6 +42,16 @@ import { transition } from '../../assets/jss/material-dashboard-pro-react.js';
 
 const useStyles = makeStyles(styles);
 const useStylesAlert = makeStyles(stylesAlert);
+
+const HtmlTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: '#f5f5f9',
+      color: 'rgba(0, 0, 0, 0.87)',
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(12),
+      border: '1px solid #dadde9',
+    },
+  }))(Tooltip);
 
 export default function UserAdd () {
 
@@ -459,6 +470,23 @@ export default function UserAdd () {
           </SweetAlert>
         );
       };
+
+      const infoAlert = () => {
+        setAlert(
+          <SweetAlert
+            info
+            style={{ display: "block", marginTop: "-100px" }}
+            title= "Ayuda"
+            onConfirm={hideAlert}
+            confirmBtnCssClass={classesA.button + " " + classesA.success}
+          >
+            <h4>El orden de los cabezales del archivo a subir son: </h4>
+            <h5>Nombre</h5><h5>Rut</h5>
+            <h5>Edad</h5><h5>Email</h5>
+            <h5>Telefono</h5><h5>Oficio</h5>
+          </SweetAlert>
+        );
+      };
    
     // function that verifies if a string has a given length or not
     const verifyLength = (value, length) => {
@@ -499,10 +527,6 @@ export default function UserAdd () {
         }
     };
 
-    const testprogress = () =>{
-        setTimeout(hideAlert,2000);
-    }
-
     return(
         <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
@@ -516,9 +540,19 @@ export default function UserAdd () {
                         <form>
                             <GridContainer>
                                 <GridItem xs={12} sm={2}>
-                                    <FormLabel className={classes.labelHorizontal}>
-                                        Cargar Usuarios
-                                    </FormLabel>
+                                    <HtmlTooltip
+                                        title={
+                                        <React.Fragment>
+                                            <Typography color="inherit">Cargar Archivos</Typography>
+                                            {"El archivo debe ser .CSV (con cabezales) ó .EXCEL"} 
+                                        </React.Fragment>
+                                        }
+                                        TransitionComponent={Zoom}
+                                    >
+                                        <FormLabel className={classes.labelHorizontal}>
+                                            Cargar Usuarios
+                                        </FormLabel>
+                                    </HtmlTooltip>
                                 </GridItem>
                                 <GridItem xs={12} sm={3}>
                                     <CustomInput 
@@ -552,9 +586,19 @@ export default function UserAdd () {
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={2}>
-                                    <FormLabel className={classes.labelHorizontal}>
-                                        Empresa
-                                    </FormLabel>
+                                <HtmlTooltip
+                                        title={
+                                        <React.Fragment>
+                                            <Typography color="inherit">Seleccionar Empresa</Typography>
+                                            {"Empresa a la cual pertenecen los usuarios"} 
+                                        </React.Fragment>
+                                        }
+                                        TransitionComponent={Zoom}
+                                    >
+                                        <FormLabel className={classes.labelHorizontal}>
+                                            Empresa
+                                        </FormLabel>
+                                    </HtmlTooltip>
                                 </GridItem>
                                 <br />
                                 <GridItem xs={12} sm={3}>
@@ -585,6 +629,28 @@ export default function UserAdd () {
                                             </MenuItem>
                                         ))}
                                     </Select>
+                                </GridItem>
+                                <GridItem>
+                                    <HtmlTooltip
+                                        title={
+                                        <React.Fragment>
+                                            <Typography color="inherit">Ayuda</Typography>
+                                        </React.Fragment>
+                                        }
+                                        TransitionComponent={Zoom}
+                                    >
+                                        <Button 
+                                            justIcon
+                                            round
+                                            simple
+                                            size="lg"
+                                            onClick={infoAlert}
+                                            color="primary"
+                                            className="help"
+                                        >
+                                        <Help />             
+                                        </Button>
+                                    </HtmlTooltip>
                                 </GridItem>
                             </GridContainer> 
                             <Divider />

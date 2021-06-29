@@ -4,7 +4,8 @@ import React, {useState, useEffect} from 'react';
 import FService from '../../services/FirebaseService.js';
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles,makeStyles } from "@material-ui/core/styles";
+import { Tooltip, Typography, Zoom } from '@material-ui/core';
 import Assignment from "@material-ui/icons/Assignment";
 import Close from "@material-ui/icons/Close";
 import Add from "@material-ui/icons/Add";
@@ -83,6 +84,16 @@ const styles = {
     }
   };
 
+  const HtmlTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: '#f5f5f9',
+      color: 'rgba(0, 0, 0, 0.87)',
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(12),
+      border: '1px solid #dadde9',
+    },
+  }))(Tooltip);
+
   const useStyles = makeStyles(styles);
   const useStylesTables = makeStyles(stylesTables);
   const useStylesAlert = makeStyles(stylesAlert); 
@@ -122,18 +133,29 @@ export default function FilePublishDashboard (){
                     {/* use this button to add a edit kind of action */}
                     {/* View user data */}
                     {/* use this button to remove the data row */}
-                    <Button
-                      justIcon
-                      round
-                      simple
-                      onClick={() =>{
-                        warningWithConfirmAndCancelMessage(id, data.nameFile, data.nameEnterprise);
-                      }}
-                      color="danger"
-                      className="remove"
+                    <HtmlTooltip 
+                      title={
+                        <React.Fragment>
+                          <Typography color="inherit">{"Eliminar"} </Typography>
+                          {"Eliminar  asignación de " + data.nameFile + " a " + data.nameEnterprise} 
+                        </React.Fragment>
+                      }
                     >
-                      <Close />
-                    </Button>{" "}
+                      <Button
+                        justIcon
+                        round
+                        simple
+                        size="lg"
+                        onClick={() =>{
+                          warningWithConfirmAndCancelMessage(id, data.nameFile, data.nameEnterprise);
+                        }}
+                        color="danger"
+                        className="remove"
+                      >
+                        <Close />
+                      </Button>
+                    </HtmlTooltip>
+                    {" "}
                   </div>
                 )
             });
@@ -219,9 +241,19 @@ export default function FilePublishDashboard (){
                               <h4 className={`${classes.cardTitle} ${classes.marginTop30}`}>
                                   Asignación de Archivos
                               </h4>
-                              <Button round color="success" component={Link} to="/admin/file-publish">
-                                  Agregar
-                              </Button>
+                              <HtmlTooltip
+                                    title={
+                                      <React.Fragment>
+                                        <Typography color="inherit">Agregar</Typography>
+                                        {"Botón que permite asignar archivos a las empresas"} 
+                                      </React.Fragment>
+                                    }
+                                    TransitionComponent={Zoom}
+                                  >
+                                    <Button round color="success" component={Link} to="/admin/file-publish">
+                                        Agregar
+                                    </Button>
+                              </HtmlTooltip>
                           </CardBody>
                       </Card>
                   </GridItem>

@@ -5,7 +5,8 @@ import {Link} from 'react-router-dom';
 import FService from '../../services/FirebaseService.js';
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles,makeStyles } from "@material-ui/core/styles";
+import { Tooltip, Typography, Zoom } from '@material-ui/core';
 import Assignment from "@material-ui/icons/Assignment";
 import Person from "@material-ui/icons/Person";
 import Edit from "@material-ui/icons/Edit";
@@ -91,6 +92,15 @@ const styles = {
 const useStyles = makeStyles(styles);
 const useStylesTables = makeStyles(stylesTables);
 const useStylesAlert = makeStyles(stylesAlert); 
+const HtmlTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(12),
+    border: '1px solid #dadde9',
+  },
+}))(Tooltip);
 
 
 export default function CallDashboard (){
@@ -120,34 +130,54 @@ export default function CallDashboard (){
             actions: (
               // we've added some custom button actions
               <div className="actions-right">
-                <Button
-                  justIcon
-                  round
-                  simple
-                  size="lg"
-                  onClick={() =>{
-                    //warningWithConfirmAndCancelMessage(id, data.calltitle);
-                    showCall(data.calltitle, data.calldetail, data.calldatepublish, data.calldateexp);
-                  }}
-                  color="success"
-                  className="show"
+                <HtmlTooltip 
+                  title={
+                    <React.Fragment>
+                      <Typography color="inherit">{"Datos de " + data.calltitle} </Typography>
+                      {/*"Botón que muestra los datos de " + data.name*/} 
+                    </React.Fragment>
+                  }
                 >
-                  <Description />
-                </Button>{" "}
+                  <Button
+                    justIcon
+                    round
+                    simple
+                    size="lg"
+                    onClick={() =>{
+                      //warningWithConfirmAndCancelMessage(id, data.calltitle);
+                      showCall(data.calltitle, data.calldetail, data.calldatepublish, data.calldateexp);
+                    }}
+                    color="success"
+                    className="show"
+                  >
+                    <Description />
+                  </Button>
+                </HtmlTooltip>
+                {" "}
                 {/* use this button to remove the data row */}
-                <Button
-                  justIcon
-                  round
-                  simple
-                  size="lg"
-                  onClick={() =>{
-                    warningWithConfirmAndCancelMessage(id, data.calltitle);
-                  }}
-                  color="danger"
-                  className="remove"
-                >
-                  <Close />
-                </Button>{" "}
+                <HtmlTooltip 
+                      title={
+                        <React.Fragment>
+                          <Typography color="inherit">{"Eliminar"} </Typography>
+                          {"Eliminar a " + data.calltitle} 
+                        </React.Fragment>
+                      }
+                    >
+                      <Button
+                        justIcon
+                        round
+                        simple
+                        size="lg"
+                        onClick={() =>{
+                          warningWithConfirmAndCancelMessage(id, data.calltitle);
+                        }}
+                        color="danger"
+                        className="remove"
+                      >
+                        <Close />
+                      </Button>
+                    </HtmlTooltip>
+                {" "}
               </div>
             )
         });
@@ -249,9 +279,19 @@ const hideAlert = () => {
                                 <h4 className={`${classes.cardTitle} ${classes.marginTop30}`}>
                                     Crear una Convocatoria
                                 </h4>
-                                <Button round color="success" component={Link} to="/admin/call-add">
-                                    Agregar
-                                </Button>
+                                <HtmlTooltip
+                                      title={
+                                        <React.Fragment>
+                                          <Typography color="inherit">Agregar</Typography>
+                                          {"Botón que permite agregar convocatorias al sistema"} 
+                                        </React.Fragment>
+                                      }
+                                      TransitionComponent={Zoom}
+                                    >
+                                      <Button round color="success" component={Link} to="/admin/call-add">
+                                        Agregar
+                                      </Button>
+                                </HtmlTooltip>
                             </CardBody>
                         </Card>
                     </GridItem>

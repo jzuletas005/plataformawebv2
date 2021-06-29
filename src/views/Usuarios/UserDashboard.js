@@ -5,7 +5,8 @@ import { Link, Switch, Route, Redirect } from "react-router-dom";
 import FService from '../../services/FirebaseService.js';
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles,makeStyles } from "@material-ui/core/styles";
+import { Tooltip, Typography, Zoom } from '@material-ui/core';
 import Assignment from "@material-ui/icons/Assignment";
 import Person from "@material-ui/icons/Person";
 import Edit from "@material-ui/icons/Edit";
@@ -14,10 +15,12 @@ import Check from "@material-ui/icons/Check";
 import Remove from "@material-ui/icons/Remove";
 import Add from "@material-ui/icons/Add";
 import People from '@material-ui/icons/PersonAdd';
+import Help from '@material-ui/icons/Help';
 
 // core components
 import GridContainer from "../../components/Grid/GridContainer.js";
 import GridItem from '../../components/Grid/GridItem.js';
+import { Icon } from '@material-ui/core';
 import Card from "../../components/Card/Card.js";
 import CardHeader from "../../components/Card/CardHeader.js";
 import CardIcon from "../../components/Card/CardIcon.js";
@@ -33,6 +36,7 @@ import {
     cardTitle,
     roseColor
 } from "../../assets/jss/material-dashboard-pro-react.js";
+import { spacing } from '@material-ui/system';
 
 
 const styles = {
@@ -84,8 +88,21 @@ const styles = {
     cardTestimonialDescription: {
       fontStyle: "italic",
       color: "#999999"
+    },
+    popover: {
+      pointerEvents: 'none',
     }
   };
+
+  const HtmlTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: '#f5f5f9',
+      color: 'rgba(0, 0, 0, 0.87)',
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(12),
+      border: '1px solid #dadde9',
+    },
+  }))(Tooltip);
 
 const useStyles = makeStyles(styles);
 const useStylesTables = makeStyles(stylesTables);
@@ -98,7 +115,6 @@ export default function UserDashboard (){
 
     //alerta
     const [alert, setAlert] = useState(null);
-
 
     //firebase 
     const [users, setUser] = useState([]);
@@ -125,20 +141,30 @@ export default function UserDashboard (){
                     {/* use this button to add a edit kind of action */}
                     {/* View user data */}
                     {/* use this button to remove the data row */}
-                    <Button
-                      justIcon
-                      round
-                      simple
-                      size="lg"
-                      onClick={() =>{
-                        //warningWithConfirmAndCancelMessage(id);
-                        showUser(data.name, data.rut, data.age, data.email, data.phone, data.profesion1);
-                      }}
-                      color="primary"
-                      className="show"
+                    <HtmlTooltip 
+                      title={
+                        <React.Fragment>
+                          <Typography color="inherit">{"Datos de " + data.name} </Typography>
+                          {/*"Botón que muestra los datos de " + data.name*/} 
+                        </React.Fragment>
+                      }
                     >
-                      <Person />
-                    </Button>{" "}
+                      <Button
+                        justIcon
+                        round
+                        simple
+                        size="lg"
+                        onClick={() =>{
+                          //warningWithConfirmAndCancelMessage(id);
+                          showUser(data.name, data.rut, data.age, data.email, data.phone, data.profesion1);
+                        }}
+                        color="primary"
+                        className="show"
+                      >
+                        <Person/>
+                      </Button>
+                    </HtmlTooltip>
+                    {" "}
                   </div>
                 )
             });
@@ -322,9 +348,19 @@ export default function UserDashboard (){
                                     <h4 className={`${classes.cardTitle} ${classes.marginTop30}`}>
                                         Inscribe un usuario
                                     </h4>
-                                    <Button round color="success" component={Link} to="/admin/user-add">
+                                    <HtmlTooltip
+                                      title={
+                                        <React.Fragment>
+                                          <Typography color="inherit">Agregar</Typography>
+                                          {"Botón que permite agregar usuarios al sistema"} 
+                                        </React.Fragment>
+                                      }
+                                      TransitionComponent={Zoom}
+                                    >
+                                      <Button round color="success" component={Link} to="/admin/user-add">
                                         Agregar
-                                    </Button>
+                                      </Button>
+                                    </HtmlTooltip>
                                 </CardBody>
                             </Card>
                         </GridItem>

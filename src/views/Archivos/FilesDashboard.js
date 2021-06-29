@@ -4,7 +4,8 @@ import React, {useState, useEffect} from 'react';
 import FService from '../../services/FirebaseService.js';
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles,makeStyles } from "@material-ui/core/styles";
+import { Tooltip, Typography, Zoom } from '@material-ui/core';
 import Assignment from "@material-ui/icons/Assignment";
 import Close from "@material-ui/icons/Close";
 import Add from "@material-ui/icons/Add";
@@ -89,6 +90,16 @@ const styles = {
   const useStylesTables = makeStyles(stylesTables);
   const useStylesAlert = makeStyles(stylesAlert); 
 
+  const HtmlTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: '#f5f5f9',
+      color: 'rgba(0, 0, 0, 0.87)',
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(12),
+      border: '1px solid #dadde9',
+    },
+  }))(Tooltip);
+
 export default function FileDashboard () {
   const classes = useStyles();
   const classesT = useStylesTables();
@@ -118,34 +129,54 @@ export default function FileDashboard () {
               // we've added some custom button actions
               <div className="actions-right">
                 {/*use to download the file */}
-                <Button
-                  justIcon
-                  round
-                  simple
-                  size="lg"
-                  onClick={() =>{
-                      //console.log(data.url);
-                      window.location=data.url;
-                  }}
-                  color="primary"
-                  className="download"
+                <HtmlTooltip 
+                  title={
+                    <React.Fragment>
+                      <Typography color="inherit">{"Descargar"} </Typography>
+                      {/*"Eliminar  asignación de " + data.calltitle + " a " + data.enterprise*/} 
+                    </React.Fragment>
+                  }
                 >
-                  <Download />
-                </Button>{" "}
+                  <Button
+                    justIcon
+                    round
+                    simple
+                    size="lg"
+                    onClick={() =>{
+                        //console.log(data.url);
+                        window.location=data.url;
+                    }}
+                    color="primary"
+                    className="download"
+                  >
+                    <Download />
+                  </Button>
+                </HtmlTooltip>
+                {" "}
                 {/* use this button to remove the data row */}
-                <Button
-                  justIcon
-                  round
-                  simple
-                  size="lg"
-                  onClick={() =>{
-                    warningWithConfirmAndCancelMessage(id, n);
-                  }}
-                  color="danger"
-                  className="remove"
+                <HtmlTooltip 
+                  title={
+                    <React.Fragment>
+                      <Typography color="inherit">{"Eliminar"} </Typography>
+                      {"Eliminar  archivo " + data.name} 
+                    </React.Fragment>
+                  }
                 >
-                  <Close />
-                </Button>{" "}
+                  <Button
+                    justIcon
+                    round
+                    simple
+                    size="lg"
+                    onClick={() =>{
+                      warningWithConfirmAndCancelMessage(id, n);
+                    }}
+                    color="danger"
+                    className="remove"
+                  >
+                    <Close />
+                  </Button>
+                </HtmlTooltip>
+                {" "}
               </div>
             )
         });
@@ -314,9 +345,19 @@ useEffect(() => {
                               <h4 className={`${classes.cardTitle} ${classes.marginTop30}`}>
                                   Agregar un archivo
                               </h4>
-                              <Button round color="success" component={Link} to="/admin/file-add">
-                                  Agregar
-                              </Button>
+                              <HtmlTooltip
+                                    title={
+                                      <React.Fragment>
+                                        <Typography color="inherit">Agregar</Typography>
+                                        {"Botón que permite agregar archivos al sistema"} 
+                                      </React.Fragment>
+                                    }
+                                    TransitionComponent={Zoom}
+                                  >
+                                    <Button round color="success" component={Link} to="/admin/file-add">
+                                        Agregar
+                                    </Button>
+                              </HtmlTooltip>
                           </CardBody>
                       </Card>
                   </GridItem>

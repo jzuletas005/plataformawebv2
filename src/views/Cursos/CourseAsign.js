@@ -16,9 +16,11 @@ import CardFooter from "../../components/Card/CardFooter.js";
 import SweetAlert from "react-bootstrap-sweetalert";
 import Table from "../../components/Table/Table.js";
 import Checkbox from "@material-ui/core/Checkbox";
+import Help from '@material-ui/icons/Help';
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles,makeStyles } from "@material-ui/core/styles";
+import { Tooltip, Typography, Zoom } from '@material-ui/core';
 import FormLabel from "@material-ui/core/FormLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Select from "@material-ui/core/Select";
@@ -44,6 +46,16 @@ import stylesTables from "../../assets/jss/material-dashboard-pro-react/views/ex
 const useStyles = makeStyles(styles);
 const useStylesAlert = makeStyles(stylesAlert);
 const useStylesTables = makeStyles(stylesTables);
+
+const HtmlTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: '#f5f5f9',
+      color: 'rgba(0, 0, 0, 0.87)',
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(12),
+      border: '1px solid #dadde9',
+    },
+  }))(Tooltip);
 
 export default function CourseAsign () {
     const classesA = useStylesAlert();
@@ -301,6 +313,19 @@ export default function CourseAsign () {
         );
       };
 
+      const infoAlert = () => {
+        setAlert(
+          <SweetAlert
+            info
+            style={{ display: "block", marginTop: "-100px" }}
+            title= "Ayuda"
+            onConfirm={hideAlert}
+            confirmBtnCssClass={classesA.button + " " + classesA.success}
+          >
+            <h4>Si la empresa no tiene proyecto no podrás asignar cursos</h4>
+          </SweetAlert>
+        );
+      };
     const hideAlert = () => {
         setAlert(null);
     };
@@ -319,9 +344,19 @@ export default function CourseAsign () {
                         <GridContainer>
                                 <GridContainer>
                                     <GridItem xs={12} sm={2}>
+                                    <HtmlTooltip
+                                        title={
+                                            <React.Fragment>
+                                                <Typography color="inherit">Seleccionar Empresa</Typography>
+                                                {"Empresa a la cual se le asignará el curso"} 
+                                            </React.Fragment>
+                                        }
+                                        TransitionComponent={Zoom}
+                                    >
                                         <FormLabel className={classes.labelHorizontal}>
                                             Empresa
                                         </FormLabel>
+                                    </HtmlTooltip>
                                     </GridItem>
                                     <GridItem xs={12} sm={7}>
                                     <br />
@@ -356,9 +391,19 @@ export default function CourseAsign () {
                                 </GridContainer>
                                 <GridContainer>
                                     <GridItem xs={12} sm={2}>
+                                    <HtmlTooltip
+                                        title={
+                                            <React.Fragment>
+                                                <Typography color="inherit">Seleccionar Proyecto</Typography>
+                                                {"Se debe seleccionar un proyecto para asignar correctamente"} 
+                                            </React.Fragment>
+                                        }
+                                        TransitionComponent={Zoom}
+                                    >
                                         <FormLabel className={classes.labelHorizontal}>
                                             Proyecto
                                         </FormLabel>
+                                    </HtmlTooltip>
                                     </GridItem>
                                     <GridItem xs={12} sm={7}>
                                     <br />

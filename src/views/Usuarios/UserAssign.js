@@ -18,7 +18,8 @@ import Table from "../../components/Table/Table.js";
 import Checkbox from "@material-ui/core/Checkbox";
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles,makeStyles } from "@material-ui/core/styles";
+import { Tooltip, Typography, Zoom } from '@material-ui/core';
 import FormLabel from "@material-ui/core/FormLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Select from "@material-ui/core/Select";
@@ -33,7 +34,7 @@ import Close from "@material-ui/icons/Close";
 import Check from "@material-ui/icons/Check";
 import Remove from "@material-ui/icons/Remove";
 import Add from "@material-ui/icons/Add";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import Help from '@material-ui/icons/Help';
 
 // style for this view
 import styles from "../../assets/jss/material-dashboard-pro-react/views/validationFormsStyle.js";
@@ -43,6 +44,16 @@ import stylesTables from "../../assets/jss/material-dashboard-pro-react/views/ex
 const useStyles = makeStyles(styles);
 const useStylesAlert = makeStyles(stylesAlert);
 const useStylesTables = makeStyles(stylesTables);
+
+const HtmlTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: '#f5f5f9',
+      color: 'rgba(0, 0, 0, 0.87)',
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(12),
+      border: '1px solid #dadde9',
+    },
+}))(Tooltip);
 
 export default function UserAssign () {
 
@@ -304,6 +315,19 @@ export default function UserAssign () {
         </SweetAlert>
     );
     };
+    const infoAlert = () => {
+        setAlert(
+          <SweetAlert
+            info
+            style={{ display: "block", marginTop: "-100px" }}
+            title= "Ayuda"
+            onConfirm={hideAlert}
+            confirmBtnCssClass={classesA.button + " " + classesA.success}
+          >
+            <h4>Si la empresa no tiene proyecto no podrás asignar usuarios</h4>
+          </SweetAlert>
+        );
+      };
 
     const hideAlert = () => {
         setAlert(null);
@@ -324,9 +348,19 @@ export default function UserAssign () {
                             <GridContainer>
                                 <GridContainer>
                                     <GridItem xs={12} sm={2}>
+                                    <HtmlTooltip
+                                        title={
+                                            <React.Fragment>
+                                                <Typography color="inherit">Seleccionar Empresa</Typography>
+                                                {"Empresa a la cual pertenecen los usuarios"} 
+                                            </React.Fragment>
+                                        }
+                                        TransitionComponent={Zoom}
+                                    >
                                         <FormLabel className={classes.labelHorizontal}>
                                             Empresa
                                         </FormLabel>
+                                    </HtmlTooltip>
                                     </GridItem>
                                     <GridItem xs={12} sm={7}>
                                     <br />
@@ -368,9 +402,19 @@ export default function UserAssign () {
                                 </GridContainer>
                                 <GridContainer>
                                     <GridItem xs={12} sm={2}>
-                                        <FormLabel className={classes.labelHorizontal}>
-                                            Proyecto
-                                        </FormLabel>
+                                        <HtmlTooltip
+                                            title={
+                                                <React.Fragment>
+                                                    <Typography color="inherit">Seleccionar Proyecto</Typography>
+                                                    {"Proyecto al que serán asignados los usuarios"} 
+                                                </React.Fragment>
+                                            }
+                                            TransitionComponent={Zoom}
+                                        >
+                                            <FormLabel className={classes.labelHorizontal}>
+                                                Proyecto
+                                            </FormLabel>
+                                        </HtmlTooltip>
                                     </GridItem>
                                     <GridItem xs={12} sm={7}>
                                     <br />

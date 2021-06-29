@@ -16,9 +16,11 @@ import CardFooter from "../../components/Card/CardFooter.js";
 import SweetAlert from "react-bootstrap-sweetalert";
 import Table from "../../components/Table/Table.js";
 import Checkbox from "@material-ui/core/Checkbox";
+import Help from '@material-ui/icons/Help';
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles,makeStyles } from "@material-ui/core/styles";
+import { Tooltip, Typography, Zoom } from '@material-ui/core';
 import FormLabel from "@material-ui/core/FormLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Select from "@material-ui/core/Select";
@@ -44,6 +46,16 @@ import stylesTables from "../../assets/jss/material-dashboard-pro-react/views/ex
 const useStyles = makeStyles(styles);
 const useStylesAlert = makeStyles(stylesAlert);
 const useStylesTables = makeStyles(stylesTables);
+
+const HtmlTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: '#f5f5f9',
+      color: 'rgba(0, 0, 0, 0.87)',
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(12),
+      border: '1px solid #dadde9',
+    },
+  }))(Tooltip);
 
 
 export default function ArticlePublish (){
@@ -243,6 +255,23 @@ export default function ArticlePublish (){
         await saveNewsPublish();
         setTimeout(successAssig, 1000);
       }
+
+      const infoAlert = () => {
+        setAlert(
+          <SweetAlert
+            info
+            style={{ display: "block", marginTop: "-100px" }}
+            title= "Ayuda"
+            onConfirm={hideAlert}
+            confirmBtnCssClass={classesA.button + " " + classesA.success}
+          >
+            <h4>El orden de los cabezales del archivo a subir son: </h4>
+            <h5>Nombre</h5><h5>Rut</h5>
+            <h5>Edad</h5><h5>Email</h5>
+            <h5>Telefono</h5><h5>Oficio</h5>
+          </SweetAlert>
+        );
+      };
     const successAssig = () => {
         setAlert(
             <SweetAlert
@@ -312,9 +341,19 @@ export default function ArticlePublish (){
                             <GridContainer>
                                 <GridContainer>
                                     <GridItem xs={12} sm={2}>
-                                        <FormLabel className={classes.labelHorizontal}>
-                                            Noticias
-                                        </FormLabel>
+                                        <HtmlTooltip
+                                            title={
+                                            <React.Fragment>
+                                                <Typography color="inherit">Seleccionar Noticia</Typography>
+                                                {"Escoja la noticia que le asignará a la empresa"} 
+                                            </React.Fragment>
+                                            }
+                                            TransitionComponent={Zoom}
+                                        >
+                                            <FormLabel className={classes.labelHorizontal}>
+                                                Noticias
+                                            </FormLabel>
+                                        </HtmlTooltip>
                                     </GridItem>
                                     <GridItem xs={12} sm={7}>
                                     <br />

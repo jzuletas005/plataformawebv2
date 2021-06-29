@@ -17,9 +17,11 @@ import CardText from "../../components/Card/CardText.js";
 import CardIcon from "../../components/Card/CardIcon.js";
 import CardBody from "../../components/Card/CardBody.js";
 import CardFooter from "../../components/Card/CardFooter.js";
+import Help from '@material-ui/icons/Help';
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles,makeStyles } from "@material-ui/core/styles";
+import { Tooltip, Typography, Zoom } from '@material-ui/core';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
@@ -37,6 +39,16 @@ import stylesAlert from "../../assets/jss/material-dashboard-pro-react/views/swe
 
 const useStyles = makeStyles(styles);
 const useStylesAlert = makeStyles(stylesAlert);
+
+const HtmlTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: '#f5f5f9',
+      color: 'rgba(0, 0, 0, 0.87)',
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(12),
+      border: '1px solid #dadde9',
+    },
+  }))(Tooltip);
 
 
 export default function FilesAdd () {
@@ -58,6 +70,16 @@ export default function FilesAdd () {
         }
         return false;
     };
+
+    const verifyType = (value, type) =>{
+        var data = value.split(".");
+        const l = data.length;
+        console.log(l, data[l - 1]);
+        if(data[l - 1] === type){
+            return true;
+        }
+        return false;
+    }
 
     const typeClick = () => {
         if (fileState === "") {
@@ -189,6 +211,22 @@ export default function FilesAdd () {
         );
       };
 
+      const infoAlert = () => {
+        setAlert(
+          <SweetAlert
+            info
+            style={{ display: "block", marginTop: "-100px" }}
+            title= "Ayuda"
+            onConfirm={hideAlert}
+            confirmBtnCssClass={classesA.button + " " + classesA.success}
+          >
+            <h4>El archivo a subir debe ser de extension: </h4>
+            <h5>.PDF</h5><h5>.MP4</h5>
+            <h5>Imagen exportada como  .PDF</h5>
+          </SweetAlert>
+        );
+      };
+
     const hideAlert = () => {
         setAlert(null);
     };
@@ -206,9 +244,19 @@ export default function FilesAdd () {
                         <form>
                             <GridContainer>
                                 <GridItem xs={12} sm={2}>
-                                    <FormLabel className={classes.labelHorizontal}>
-                                        Cargar Archivo
-                                    </FormLabel>
+                                    <HtmlTooltip
+                                        title={
+                                        <React.Fragment>
+                                            <Typography color="inherit">Cargar Archivos</Typography>
+                                            {"El archivo debe ser .PDF, .MP4 ó imagenes guardadas con extensión .PDF"} 
+                                        </React.Fragment>
+                                        }
+                                        TransitionComponent={Zoom}
+                                    >
+                                        <FormLabel className={classes.labelHorizontal}>
+                                            Cargar Archivo
+                                        </FormLabel>
+                                    </HtmlTooltip>
                                 </GridItem>
                                 <GridItem xs={12} sm={7}>
                                     <CustomInput 
@@ -221,23 +269,28 @@ export default function FilesAdd () {
                                         multiple
                                         inputProps={{
                                             onChange: event => {
-                                            if (verifyLength(event.target.value, 0)) {
-                                                setFileState("success");
-                                            } else {
-                                                setFileState("error");
-                                            }
-                                            let reader = new FileReader();
-                                            let file = event.target.files[0];
-                                            reader.onloadend = () => {
-                                            setFile(file);
-                                            //setImagePreviewUrl(reader.result);
-                                            //sendData(reader.result);
-                                            setFileB64(reader.result);
-                                            };
-                                            if (file) {
-                                                reader.readAsDataURL(file);
-                                            }
-                                            //setFile(event.target.files[0]);
+                                                if (verifyLength(event.target.value, 0)) {
+                                                    if( verifyType(event.target.value, "pdf") || 
+                                                    verifyType(event.target.value, "mp4")){
+                                                        let reader = new FileReader();
+                                                        let file = event.target.files[0];
+                                                        var type = event.target.value.split(".");
+                                                        //setFileType(type[type.length - 1]);
+                                                        reader.onloadend = () => {
+                                                            setFile(file);
+                                                            //console.log(file);
+                                                            setFileB64(reader.result);
+                                                        };
+                                                        if (file) {
+                                                            reader.readAsDataURL(file);
+                                                        }
+                                                        setFileState("success");
+                                                    }else{
+                                                        setFileState("error");
+                                                    }
+                                                } else {
+                                                    setFileState("error");
+                                                }
                                             },
                                             type: "file",
                                             endAdornment:
@@ -250,6 +303,28 @@ export default function FilesAdd () {
                                             )
                                         }}
                                     />
+                                </GridItem>
+                                <GridItem>
+                                    <HtmlTooltip
+                                        title={
+                                        <React.Fragment>
+                                            <Typography color="inherit">Ayuda</Typography>
+                                        </React.Fragment>
+                                        }
+                                        TransitionComponent={Zoom}
+                                    >
+                                        <Button 
+                                            justIcon
+                                            round
+                                            simple
+                                            size="lg"
+                                            onClick={infoAlert}
+                                            color="primary"
+                                            className="help"
+                                        >
+                                        <Help />             
+                                        </Button>
+                                    </HtmlTooltip>
                                 </GridItem>
                             </GridContainer> 
                         </form>

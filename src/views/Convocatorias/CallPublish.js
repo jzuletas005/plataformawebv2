@@ -19,7 +19,8 @@ import Table from "../../components/Table/Table.js";
 import Checkbox from "@material-ui/core/Checkbox";
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles,makeStyles } from "@material-ui/core/styles";
+import { Tooltip, Typography, Zoom } from '@material-ui/core';
 import FormLabel from "@material-ui/core/FormLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Select from "@material-ui/core/Select";
@@ -45,6 +46,16 @@ import stylesTables from "../../assets/jss/material-dashboard-pro-react/views/ex
 const useStyles = makeStyles(styles);
 const useStylesAlert = makeStyles(stylesAlert);
 const useStylesTables = makeStyles(stylesTables);
+
+const HtmlTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: '#f5f5f9',
+      color: 'rgba(0, 0, 0, 0.87)',
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(12),
+      border: '1px solid #dadde9',
+    },
+  }))(Tooltip);
 
 
 export default function CallPublish (){
@@ -316,9 +327,19 @@ export default function CallPublish (){
                             <GridContainer>
                                 <GridContainer>
                                     <GridItem xs={12} sm={2}>
-                                        <FormLabel className={classes.labelHorizontal}>
-                                            Noticias
-                                        </FormLabel>
+                                        <HtmlTooltip
+                                            title={
+                                                <React.Fragment>
+                                                    <Typography color="inherit">Seleccionar Convocatoria</Typography>
+                                                    {"Convocatorias existentes en el sistema"} 
+                                                </React.Fragment>
+                                            }
+                                            TransitionComponent={Zoom}
+                                        >
+                                            <FormLabel className={classes.labelHorizontal}>
+                                                Convocatorias
+                                            </FormLabel>
+                                        </HtmlTooltip>
                                     </GridItem>
                                     <GridItem xs={12} sm={7}>
                                     <br />

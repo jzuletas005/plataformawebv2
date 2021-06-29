@@ -24,7 +24,8 @@ import CardBody from "../../components/Card/CardBody.js";
 import CardFooter from "../../components/Card/CardFooter.js";
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles,makeStyles } from "@material-ui/core/styles";
+import { Tooltip, Typography, Zoom } from '@material-ui/core';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
@@ -40,6 +41,16 @@ import stylesAlert from "../../assets/jss/material-dashboard-pro-react/views/swe
 
 const useStyles = makeStyles(styles);
 const useStylesAlert = makeStyles(stylesAlert);
+
+const HtmlTooltip = withStyles((theme) => ({
+    tooltip: {
+      backgroundColor: '#f5f5f9',
+      color: 'rgba(0, 0, 0, 0.87)',
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(12),
+      border: '1px solid #dadde9',
+    },
+  }))(Tooltip);
 
 export default function CourseAdd () {
     const classes = useStyles();
@@ -355,9 +366,19 @@ export default function CourseAdd () {
                         <form>
                             <GridContainer>
                                 <GridItem xs={12} sm={2}>
-                                    <FormLabel className={classes.labelHorizontal}>
-                                        Nombre del Curso
-                                    </FormLabel>
+                                    <HtmlTooltip
+                                        title={
+                                            <React.Fragment>
+                                                <Typography color="inherit">Nombre Curso</Typography>
+                                                {"Nombre del curso a crear"} 
+                                            </React.Fragment>
+                                        }
+                                        TransitionComponent={Zoom}
+                                    >
+                                        <FormLabel className={classes.labelHorizontal}>
+                                            Nombre del Curso
+                                        </FormLabel>
+                                    </HtmlTooltip>
                                 </GridItem>
                                 <GridItem xs={12} sm={7}>
                                     <CustomInput 
@@ -392,9 +413,19 @@ export default function CourseAdd () {
                             </GridContainer>
                             <GridContainer>
                                 <GridItem xs={12} sm={2}>
-                                    <FormLabel className={classes.labelHorizontal}>
-                                        Cargar Archivo
-                                    </FormLabel>
+                                    <HtmlTooltip
+                                        title={
+                                            <React.Fragment>
+                                                <Typography color="inherit">Cargar Archivo</Typography>
+                                                {"El archivo debe ser de extensión .PDF ó .MP4"} 
+                                            </React.Fragment>
+                                        }
+                                        TransitionComponent={Zoom}
+                                    >
+                                        <FormLabel className={classes.labelHorizontal}>
+                                            Cargar Archivo
+                                        </FormLabel>
+                                    </HtmlTooltip>
                                 </GridItem>
                                 <GridItem xs={12} sm={7}>
                                     <CustomInput 
@@ -446,9 +477,19 @@ export default function CourseAdd () {
                             <Divider />
                             <GridContainer>
                                 <GridItem xs={12} sm={2}>
-                                    <FormLabel className={classes.labelHorizontal}>
-                                        Cargar Preguntas
-                                    </FormLabel>
+                                    <HtmlTooltip
+                                        title={
+                                            <React.Fragment>
+                                                <Typography color="inherit">Cargar Archivo</Typography>
+                                                {"El archivo debe ser de extensión .CSV ó .EXCEL"} 
+                                            </React.Fragment>
+                                        }
+                                        TransitionComponent={Zoom}
+                                    >
+                                        <FormLabel className={classes.labelHorizontal}>
+                                            Cargar Preguntas
+                                        </FormLabel>
+                                    </HtmlTooltip>
                                 </GridItem>
                                 <GridItem xs={12} sm={7}>
                                     <CustomInput 
@@ -488,9 +529,19 @@ export default function CourseAdd () {
                             </GridContainer>
                             <GridContainer>
                                 <GridItem xs={12} sm={2}>
-                                    <FormLabel className={classes.labelHorizontal}>
-                                        Cargar Alternativas
-                                    </FormLabel>
+                                    <HtmlTooltip
+                                        title={
+                                            <React.Fragment>
+                                                <Typography color="inherit">Cargar Archivo</Typography>
+                                                {"El archivo debe ser de extensión .CSV ó .EXCEL"} 
+                                            </React.Fragment>
+                                        }
+                                        TransitionComponent={Zoom}
+                                    >
+                                        <FormLabel className={classes.labelHorizontal}>
+                                            Cargar Alternativas
+                                        </FormLabel>
+                                    </HtmlTooltip>
                                 </GridItem>
                                 <GridItem xs={12} sm={7}>
                                     <CustomInput 
@@ -530,9 +581,19 @@ export default function CourseAdd () {
                             </GridContainer>
                             <GridContainer>
                                 <GridItem xs={12} sm={2}>
-                                    <FormLabel className={classes.labelHorizontal}>
-                                        Cargar Respuestas
-                                    </FormLabel>
+                                    <HtmlTooltip
+                                        title={
+                                            <React.Fragment>
+                                                <Typography color="inherit">Cargar Archivo</Typography>
+                                                {"El archivo debe ser de extensión .CSV ó .EXCEL"} 
+                                            </React.Fragment>
+                                        }
+                                        TransitionComponent={Zoom}
+                                    >
+                                        <FormLabel className={classes.labelHorizontal}>
+                                            Cargar Respuestas
+                                        </FormLabel>
+                                    </HtmlTooltip>
                                 </GridItem>
                                 <GridItem xs={12} sm={7}>
                                     <CustomInput 

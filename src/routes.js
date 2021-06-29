@@ -47,7 +47,7 @@ import Project from '@material-ui/icons/Assignment';
 var dashRoutes = [
     {
         path: "/dashboard",
-        name: "Dashboard",
+        name: "Inicio",
         component: Dashboard,
         icon: DashboardIcon,
         layout: "/admin",

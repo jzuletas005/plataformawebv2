@@ -5,7 +5,8 @@ import {Link} from "react-router-dom";
 import FService from '../../services/FirebaseService.js';
 
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles,makeStyles } from "@material-ui/core/styles";
+import { Tooltip, Typography, Zoom } from '@material-ui/core';
 import Assignment from "@material-ui/icons/Assignment";
 import Person from "@material-ui/icons/Person";
 import Edit from "@material-ui/icons/Edit";
@@ -87,6 +88,16 @@ const styles = {
   }
 };
 
+const HtmlTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(12),
+    border: '1px solid #dadde9',
+  },
+}))(Tooltip);
+
 const useStyles = makeStyles(styles);
 const useStylesTables = makeStyles(stylesTables);
 const useStylesAlert = makeStyles(stylesAlert); 
@@ -118,19 +129,29 @@ export default function EnterpriseDashboard () {
                   // we've added some custom button actions
                   <div className="actions-right">
                     {/* use this button to remove the data row */}
-                    <Button
-                      justIcon
-                      round
-                      simple
-                      size="lg"
-                      onClick={() =>{
-                        warningWithConfirmAndCancelMessage(id, data.enterprisename);
-                      }}
-                      color="danger"
-                      className="remove"
+                    <HtmlTooltip 
+                      title={
+                        <React.Fragment>
+                          <Typography color="inherit">{"Eliminar"} </Typography>
+                          {/*"Eliminar  asignación de " + data.news + " a " + data.enterprise*/} 
+                        </React.Fragment>
+                      }
                     >
-                      <Close />
-                    </Button>{" "}
+                      <Button
+                        justIcon
+                        round
+                        simple
+                        size="lg"
+                        onClick={() =>{
+                          warningWithConfirmAndCancelMessage(id, data.enterprisename);
+                        }}
+                        color="danger"
+                        className="remove"
+                      >
+                        <Close />
+                      </Button>
+                    </HtmlTooltip>
+                    {" "}
                   </div>
                 )
             });
@@ -509,9 +530,19 @@ export default function EnterpriseDashboard () {
                                     <h4 className={`${classes.cardTitle} ${classes.marginTop30}`}>
                                         Inscribe una empresa
                                     </h4>
-                                    <Button round color="success" component={Link} to="/admin/enterprise-add">
-                                        Agregar
-                                    </Button>
+                                    <HtmlTooltip
+                                      title={
+                                        <React.Fragment>
+                                          <Typography color="inherit">Agregar</Typography>
+                                          {"Botón que permite crear empresas"} 
+                                        </React.Fragment>
+                                      }
+                                      TransitionComponent={Zoom}
+                                    >
+                                      <Button round color="success" component={Link} to="/admin/enterprise-add">
+                                          Agregar
+                                      </Button>
+                                    </HtmlTooltip>
                                 </CardBody>
                             </Card>
                         </GridItem>
