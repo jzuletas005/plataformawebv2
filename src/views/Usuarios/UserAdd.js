@@ -100,10 +100,7 @@ export default function UserAdd () {
                         passconfirm: pass,
                         profesion1: element.Oficio,
                         profesion2: "",
-                        profesion3: "",
-                        profileimage: "",
-                        dnifront: "",
-                        dnireverse: ""
+                        profesion3: ""
                     }
 
                    var uid = await getUID(data.username, data.pass);
@@ -112,6 +109,7 @@ export default function UserAdd () {
 
                    if(uid != "Error"){
                         await createNewUser(uid, data);  
+                        //await createFolderUser(clean(run));
                    }else{
                        console.log("Datos Errones");
                    }
@@ -137,6 +135,18 @@ export default function UserAdd () {
                 resolve("Error");
                 console.log("error: " +err);
             });
+        })
+    }
+
+    //create folder user
+    const createFolderUser = (folder) => {
+        console.log("Here");
+        return new Promise ((resolve) => {
+            FService.createProfileUser(folder);
+            FService.createDocUser(folder);
+            resolve();
+        }).catch(err => {
+            console.log("Error");
         })
     }
 

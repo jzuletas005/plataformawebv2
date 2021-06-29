@@ -1,8 +1,6 @@
 import firebase from '../util/firebase.js';
 import 'firebase/firebase';
 import 'firebase/storage';
-import ProjectAdd from '../views/Proyectos/ProjectAdd.js';
-
 
 //Collections
 const dbUsers = firebase.firestore().collection("/users");
@@ -118,10 +116,19 @@ const deleteFile = (data) => {
 const getDownloadURL = (data) =>{
     return firebase.storage().ref(`files/${data}`).getDownloadURL();
 }
-//testFile
-const createTest = (data) =>{
-    return dbTest.add(data);
+
+/**
+ * Queries from Files user
+ */
+//add file profile User
+const createProfileUser = (user) => {
+    return firebase.storage().ref().child(`users/${user}/profile`);
 }
+
+const createDocUser = (user) => {
+    return firebase.storage().ref().child(`users/${user}/doc`);
+} 
+
 // add file data
 const addFile = (data) => {
     return dbFiles.add(data);
@@ -420,6 +427,8 @@ const FService = {
     addFile,
     removeFile,
     getDownloadURL,
+    createProfileUser,
+    createDocUser,
 
     //Auth
     createAuth,
