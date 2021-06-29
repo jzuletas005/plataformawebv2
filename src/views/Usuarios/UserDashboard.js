@@ -16,6 +16,7 @@ import Remove from "@material-ui/icons/Remove";
 import Add from "@material-ui/icons/Add";
 import People from '@material-ui/icons/PersonAdd';
 import Help from '@material-ui/icons/Help';
+import Download from '@material-ui/icons/CloudDownload';
 
 // core components
 import GridContainer from "../../components/Grid/GridContainer.js";
@@ -364,6 +365,29 @@ export default function UserDashboard (){
                                 </CardBody>
                             </Card>
                         </GridItem>
+                    </GridContainer>
+                    <GridContainer>
+                      <GridItem xs>
+                        <Card>
+                          <CardHeader>
+                            Formato de archivo usuario
+                            <Button
+                              justIcon
+                              round
+                              simple
+                              size="lg"
+                              onClick={() =>{
+                                  //console.log(data.url);
+                                  window.location="https://firebasestorage.googleapis.com/v0/b/plataforma-dev-34ce8.appspot.com/o/template%2FuserTemplate.xlsx?alt=media&token=b31755c1-1c98-4530-85e8-8fdf8853686b";
+                              }}
+                              color="primary"
+                              className="download"
+                            >
+                              <Download />
+                            </Button>
+                          </CardHeader>
+                        </Card>
+                      </GridItem>
                     </GridContainer>
                 </GridItem>
                 <GridItem xs={9}>
