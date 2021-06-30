@@ -8,7 +8,7 @@ import { Link, Switch, Route, Redirect } from "react-router-dom";
 
 // @material-ui/core components
 import { withStyles,makeStyles } from "@material-ui/core/styles";
-import { Tooltip, Typography, Zoom } from '@material-ui/core';
+import { Divider, Tooltip, Typography, Zoom } from '@material-ui/core';
 import Assignment from "@material-ui/icons/Assignment";
 import Person from "@material-ui/icons/Person";
 import Edit from "@material-ui/icons/Edit";
@@ -17,7 +17,7 @@ import Check from "@material-ui/icons/Check";
 import Remove from "@material-ui/icons/Remove";
 import Add from "@material-ui/icons/Add";
 import People from '@material-ui/icons/PersonAdd';
-import Description from "@material-ui/icons/Description";
+import Download from '@material-ui/icons/CloudDownload';
 
 // core components
 import GridContainer from "../../components/Grid/GridContainer.js";
@@ -311,6 +311,62 @@ export default function CourseDashboard () {
                                 </CardBody>
                             </Card>
                         </GridItem>
+                    </GridContainer> <GridContainer>
+                      <GridItem xs>
+                        <Card profile>
+                          <CardBody>
+                            Formato archivo Preguntas
+                            <Button
+                              justIcon
+                              round
+                              simple
+                              size="lg"
+                              onClick={() =>{
+                                  //console.log(data.url);
+                                  window.location="https://firebasestorage.googleapis.com/v0/b/plataforma-dev-34ce8.appspot.com/o/template%2FpreguntasTemplate.xlsx?alt=media&token=94d5b835-c494-49a4-b171-3bc912ba4b11";
+                              }}
+                              color="primary"
+                              className="download"
+                            >
+                              <Download />
+                            </Button>
+                            <Divider />
+                            
+                            Formato archivo Respuestas
+                            <Button
+                              justIcon
+                              round
+                              simple
+                              size="lg"
+                              onClick={() =>{
+                                  //console.log(data.url);
+                                  window.location="https://firebasestorage.googleapis.com/v0/b/plataforma-dev-34ce8.appspot.com/o/template%2FrespuestasTemplate.xlsx?alt=media&token=42b14e35-b60c-43f7-9957-7688d3c485da";
+                              }}
+                              color="primary"
+                              className="download"
+                            >
+                              <Download />
+                            </Button>
+                            <Divider />
+
+                            Formato archivo Alternativas
+                            <Button
+                              justIcon
+                              round
+                              simple
+                              size="lg"
+                              onClick={() =>{
+                                  //console.log(data.url);
+                                  window.location="https://firebasestorage.googleapis.com/v0/b/plataforma-dev-34ce8.appspot.com/o/template%2FalternativasTemplate.xlsx?alt=media&token=3a896470-75b0-4557-9c17-d5bf18516d3e";
+                              }}
+                              color="primary"
+                              className="download"
+                            >
+                              <Download />
+                            </Button>
+                          </CardBody>
+                        </Card>
+                      </GridItem>
                     </GridContainer>
                 </GridItem>
                 <GridItem xs={9}>
