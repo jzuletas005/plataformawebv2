@@ -90,7 +90,7 @@ export default function CourseAsign () {
                 id: id,
                 name: data.name,
                 filetype: data.filetype,
-                fileB64: data.fileB64,
+                fileURL: data.fileURL,
                 alternatives: data.alternatives,
                 questions: data.questions,
                 answers: data.answers,

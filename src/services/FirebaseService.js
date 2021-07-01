@@ -118,6 +118,22 @@ const getDownloadURL = (data) =>{
 }
 
 /**
+ * Queries Course File
+*/
+//create file course
+const createFileCourse = (data) =>{
+    return firebase.storage().ref(`courses/${data.name}`).put(data);
+}
+// delete file coruse
+const deleteFileCourse = (data) => {
+    return firebase.storage().ref(`courses/${data}`).delete();
+};
+//get Download URL
+const getDownloadURLCoruse = (data) =>{
+    return firebase.storage().ref(`courses/${data}`).getDownloadURL();
+}
+
+/**
  * Queries from Files user
  */
 //add file profile User
@@ -322,6 +338,10 @@ const getAllCallEnterprise = (id) =>{
 const createCourse = (data) =>{
     return dbCourse.add(data);
 };
+//update course
+const updateCourse = (id ,data) => {
+    return dbCourse.doc(id).update(data);
+};
 //remove course
 const removeCourse = (id) =>{
     return dbCourse.doc(id).delete();
@@ -409,6 +429,7 @@ const FService = {
     getAllCallEnterprise,
     getOneCallUser,
     createCourse,
+    updateCourse,
     removeCourse,
     getAllCourse,
     createCourseWorker,
@@ -420,13 +441,16 @@ const FService = {
 
     //file system
     createFile,
+    createFileCourse,
     deleteFile,
+    deleteFileCourse,
     updateFile,
     getAllFiles,
     getOneFile,
     addFile,
     removeFile,
     getDownloadURL,
+    getDownloadURLCoruse,
     createProfileUser,
     createDocUser,
 

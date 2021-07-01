@@ -161,24 +161,59 @@ export default function CourseAdd () {
             const dateobj = new Date(unixtimestamp );
             const date = dateobj.toLocaleDateString();
 
+            var val = file.name.split('.')
+
             var data = {
                 name: courseName,
                 date: date,
+                fileName: val[0],
                 filetype: fileType,
                 fileB64: fileB64,
+                fileURL: "",
                 questions: dataQuestion,
                 alternatives: alternativesQuestion,
                 answers: dataAnswer
             }
+
+            var data2 = {
+                name: courseName,
+                date: date,
+                fileName: val[0],
+                filetype: fileType,
+                fileB64: "",
+                fileURL : "",
+                questions: dataQuestion,
+                alternatives: alternativesQuestion,
+                answers: dataAnswer
+            }
+
             //console.log(data);
             FService.createCourse(data).then(() =>{
                 console.log("Done");
                 resolve();
             }).catch(e =>{
+                FService.createCourse(data2).then(() => {
+                    console.log("Done without fb64");
+                    resolve();
+                }).catch(err => {console.log("Error: " +err)})
                 console.log("Error: " +e);
             });
         }).catch(err => {console.log("Error: " +err)})
     }
+
+    const uploadFile = () => {
+
+        return new Promise ((resolve) =>{
+            FService.createFileCourse(file).then(() =>{
+                console.log("Done");
+                resolve();
+            }).catch(e =>{
+                console.log("Error: "+ e);
+            });
+
+        }).catch(err =>{console.log("Error: " +err)})
+        
+    };
 
     const successAlert = () => {
         setAlert(
@@ -326,6 +361,7 @@ export default function CourseAdd () {
 
     const waiting = async () =>{
         waitAlert();
+        await uploadFile();
         await saveCourse();
         hideAlert();
         successAlert();

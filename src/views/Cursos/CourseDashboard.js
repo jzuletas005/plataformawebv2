@@ -126,6 +126,8 @@ export default function CourseDashboard () {
             let id = item.id;
             let data = item.data();
             var type = data.filetype.toUpperCase();
+            var n = data.fileName+ "." + data.filetype.toLowerCase();
+            getURL(n,id);
             us.push({
                 key: keyX,
                 id: id,
@@ -234,6 +236,22 @@ export default function CourseDashboard () {
           }).catch(err => {console.log("Error: " +err)})
         }).catch(err => {console.log("Error: " +err)})
       }
+
+      const getURL = (data, id) =>{
+        FService.getDownloadURLCoruse(data).then((d) =>{
+          updateSourceFile(d, id);
+          console.log(d);
+        }).catch(e =>{
+          console.log("Error: " +e);
+        });
+      };
+      const updateSourceFile = (a, b) =>{
+        FService.updateCourse(b, {fileURL:a}).then(() =>{
+          console.log("Updated");
+        }).catch(e =>{
+          console.log("Error: " +e);
+        });
+      };
 
       const waitAlert = () => {
         setAlert(
