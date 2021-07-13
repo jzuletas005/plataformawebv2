@@ -422,7 +422,7 @@ export default function ArticlePublish (){
                     </CardBody>
                     <CardFooter className={classes.justifyContentCenter}>
                         <Button color="rose" onClick={typeClick}>
-                            Asignar a Empresa
+                            Asignar Noticia
                         </Button>
                     </CardFooter>
                 </Card>

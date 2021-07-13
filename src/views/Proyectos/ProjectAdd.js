@@ -433,7 +433,7 @@ export default function ProjectAdd (){
                     </CardBody>
                     <CardFooter className={classes.justifyContentCenter}>
                         <Button color="rose" onClick={typeClick}>
-                            Crear Convocatoria
+                            Crear Proyecto
                         </Button>
                     </CardFooter>
                 </Card>

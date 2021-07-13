@@ -75,7 +75,7 @@ export default function LoginPage() {
 
   const typeClick = () =>{
     FService.signIn(email, password).then(u => {window.location.href="/admin/dashboard";}).catch(err => {errorAlert("Sus credenciales nos válidas"); console.log("Error: " +err);});
-    console.log(email, password);
+    //console.log(email, password);
   }
 
   const errorAlert = (text) => {

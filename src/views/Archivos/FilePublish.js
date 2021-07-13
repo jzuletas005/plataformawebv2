@@ -334,7 +334,7 @@ export default function FilePublish (){
                 <Card>
                     <CardHeader color="rose" text>
                         <CardText color="rose">
-                            <h4 className={classes.cardTitle}>Agregar Proyecto</h4>
+                            <h4 className={classes.cardTitle}>Asignar Archivo</h4>
                         </CardText>
                     </CardHeader>
                     <CardBody>
@@ -449,7 +449,7 @@ export default function FilePublish (){
                     </CardBody>
                     <CardFooter className={classes.justifyContentCenter}>
                         <Button color="rose" onClick={typeClick}>
-                            Asignar a Empresa
+                            Asignar Archivo
                         </Button>
                     </CardFooter>
                 </Card>
