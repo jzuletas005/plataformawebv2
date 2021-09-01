@@ -8,6 +8,7 @@
 
 ## Status
 - in development (12/06/2021).
+- done on review (24/07/2021).
 
 ## Technologies
 - React JS
